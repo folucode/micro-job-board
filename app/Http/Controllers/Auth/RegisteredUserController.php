@@ -46,6 +46,17 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
-        return redirect(RouteServiceProvider::HOME);
+        if ($response = $this->registered($request, $user)) {
+            return $response;
+        }
+
+        // return redirect(RouteServiceProvider::HOME);
+    }
+
+    protected function registered(Request $request, $user)
+    {
+        $token = $user->generateToken();
+
+        return response()->json(['data' => $user->toArray(), 'token' => $token], 201);
     }
 }
