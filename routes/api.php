@@ -28,8 +28,13 @@ Route::prefix('v1')->group(function () {
     Route::post('/register', [RegisteredUserController::class, 'store'])
         ->middleware('guest:api');
 
-    Route::post('/login', [\App\Http\Controllers\Api\v1\LoginController::class, 'authenticate'])
-        ->middleware('guest:api');
+    Route::post('/login', [\App\Http\Controllers\Api\v1\AuthController::class, 'login'])
+        ->middleware('cors:json.response');
 
-    Route::post('/logout', [\App\Http\Controllers\Api\v1\LoginController::class, 'logout'])->middleware('auth:api');;
+    Route::post('/logout', [\App\Http\Controllers\Api\v1\AuthController::class, 'logout'])->middleware('auth:api');
+
+    // Route::middleware('auth:api')->group(function () {
+    //     // our routes to be protected will go in here
+    //     Route::post('/logout', 'Auth\ApiAuthController@logout')->name('logout.api');
+    // });
 });
