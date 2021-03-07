@@ -10,6 +10,6 @@ class JobController extends Controller
 {
     public function store(Request $request)
     {
-        return 'Job::create($request->all());';
+        return Job::create($request->all());
     }
 }

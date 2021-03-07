@@ -30,8 +30,8 @@ class AuthController extends Controller
 
         $token = $user->generateToken();
 
-        $response = ['token' => $token];
-        return response($response, 200);
+        $response = ['status' => 'Success', 'message' => 'User Created Successfully!', 'data' => $user];
+        return response($response, 201);
     }
 
     public function login(Request $request)
@@ -64,7 +64,10 @@ class AuthController extends Controller
         $request->user()->api_token = null;
         $request->user()->save();
         $request->user()->tokens()->delete();
-        $response = ['message' => 'You have been successfully logged out!'];
+        $response = [
+            'status' => 'success',
+            'message' => 'successfully logged out user.'
+        ];
         return response($response, 200);
     }
 }
