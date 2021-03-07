@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Auth\RegisteredUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +16,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/v1/user', function (Request $request) {
-    return $request->user();
+Route::prefix('v1')->group(function () {
+    Route::middleware('auth:api')->get('/user', function (Request $request) {
+        return $request->user();
+    });
+
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->middleware('auth:api')->name('dashboard');
+
+    Route::post('/register', [RegisteredUserController::class, 'store'])
+        ->middleware('guest:api');
+
+    Route::post('/login', [\App\Http\Controllers\Api\v1\LoginController::class, 'authenticate'])
+        ->middleware('guest:api');
 });
