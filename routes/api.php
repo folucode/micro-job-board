@@ -30,4 +30,6 @@ Route::prefix('v1')->group(function () {
 
     Route::post('/login', [\App\Http\Controllers\Api\v1\LoginController::class, 'authenticate'])
         ->middleware('guest:api');
+
+    Route::post('/logout', [\App\Http\Controllers\Api\v1\LoginController::class, 'logout'])->middleware('auth:api');;
 });
