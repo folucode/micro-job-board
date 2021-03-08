@@ -34,9 +34,17 @@ class JobController extends Controller
 
     public function delete(Request $request, $id)
     {
-        $article = Job::findOrFail($id);
-        $article->delete();
+        $article = Job::where('user_id', $request->user()->id)->where('id', $id);
+        if ($article->delete()) {
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Job Successfully Deleted!'
+            ], 200);
+        }
 
-        return 204;
+        return response()->json([
+            'status' => 'error',
+            'message' => 'Job Not Found!'
+        ], 404);
     }
 }

@@ -39,4 +39,6 @@ Route::prefix('v1')->group(function () {
 
     Route::get('/jobs/{job}', [\App\Http\Controllers\Api\v1\JobController::class, 'show'])->middleware('cors:json.response');
 
+    Route::delete('/jobs/{job}', [\App\Http\Controllers\Api\v1\JobController::class, 'delete'])->middleware('auth:api');
+
 });
