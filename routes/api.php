@@ -43,4 +43,5 @@ Route::prefix('v1')->group(function () {
 
     Route::patch('/my/jobs/{job}', [\App\Http\Controllers\Api\v1\JobController::class, 'update'])->middleware('auth:api');
 
+    Route::post('/jobs/{job}/apply', [\App\Http\Controllers\Api\v1\ApplicationController::class, 'store'])->middleware('cors:json.response');
 });
