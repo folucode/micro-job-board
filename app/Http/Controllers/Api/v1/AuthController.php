@@ -34,6 +34,12 @@ class AuthController extends Controller
         return response($response, 201);
     }
 
+    /**
+     * Handle an login attempt.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
     public function login(Request $request)
     {
         $validator = Validator::make($request->all(), [

@@ -8,8 +8,34 @@ use Illuminate\Http\Request;
 
 class JobController extends Controller
 {
+    public function index()
+    {
+        $jobs = Job::all();
+
+        return response()->json(['data' => $jobs->toArray()], 200);
+    }
+
     public function store(Request $request)
     {
-        return Job::create($request->all());
+        $input = $request->all();
+        $input['user_id'] = $request->user()->id;
+        $data = Job::create($input);
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Job Successfully Created!', 'data' => $data->toArray()
+        ], 200);
+    }
+
+    public function show($id)
+    {
+        return Job::find($id);
+    }
+
+    public function delete(Request $request, $id)
+    {
+        $article = Job::findOrFail($id);
+        $article->delete();
+
+        return 204;
     }
 }

@@ -35,4 +35,6 @@ Route::prefix('v1')->group(function () {
 
     Route::post('/jobs', [\App\Http\Controllers\Api\v1\JobController::class, 'store'])->middleware('auth:api');
 
+    Route::get('/jobs', [\App\Http\Controllers\Api\v1\JobController::class, 'index'])->middleware('cors:json.response');
+
 });
