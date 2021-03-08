@@ -17,9 +17,7 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 */
 
 Route::prefix('v1')->group(function () {
-    Route::middleware('auth:api')->get('/user', function (Request $request) {
-        return $request->user();
-    });
+    Route::middleware('auth:api')->get('/user', [\App\Http\Controllers\Api\v1\UserController::class, 'index']);
 
     Route::get('/dashboard', function () {
         return view('dashboard');
