@@ -16,34 +16,32 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 |
 */
 
-Route::prefix('v1')->group(function () {
-    Route::middleware('auth:api')->get('/user', [\App\Http\Controllers\Api\v1\UserController::class, 'index']);
+Route::group(['prefix' => 'v1', 'middleware' => 'auth:api'], function () {
 
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->middleware('auth:api')->name('dashboard');
+    Route::get('/user', [\App\Http\Controllers\Api\v1\UserController::class, 'index']);
 
-    Route::post('/register', [\App\Http\Controllers\Api\v1\AuthController::class, 'register'])
-        ->middleware('guest:api');
+    Route::post('/logout', [\App\Http\Controllers\Api\v1\AuthController::class, 'logout']);
 
-    Route::post('/login', [\App\Http\Controllers\Api\v1\AuthController::class, 'login'])
-        ->middleware('cors:json.response');
+    Route::post('/my/jobs', [\App\Http\Controllers\Api\v1\JobController::class, 'store']);
 
-    Route::post('/logout', [\App\Http\Controllers\Api\v1\AuthController::class, 'logout'])->middleware('auth:api');
+    Route::get('/my/jobs/', [\App\Http\Controllers\Api\v1\JobController::class, 'showMyJobs']);
 
-    Route::post('/my/jobs', [\App\Http\Controllers\Api\v1\JobController::class, 'store'])->middleware('auth:api');
+    Route::patch('/my/jobs/{job}', [\App\Http\Controllers\Api\v1\JobController::class, 'update']);
 
-    Route::get('/jobs', [\App\Http\Controllers\Api\v1\JobController::class, 'index'])->middleware('cors:json.response');
+    Route::delete('/my/jobs/{job}', [\App\Http\Controllers\Api\v1\JobController::class, 'delete']);
+});
 
-    Route::get('/jobs/search', [\App\Http\Controllers\Api\v1\JobController::class, 'search'])->middleware('cors:json.response');
+Route::group(['prefix' => 'v1', 'middleware' => 'cors:json.response'], function () {
 
-    Route::get('/jobs/{job}', [\App\Http\Controllers\Api\v1\JobController::class, 'show'])->middleware('cors:json.response');
+    Route::post('/register', [\App\Http\Controllers\Api\v1\AuthController::class, 'register']);
 
-    Route::delete('/my/jobs/{job}', [\App\Http\Controllers\Api\v1\JobController::class, 'delete'])->middleware('auth:api');
+    Route::post('/login', [\App\Http\Controllers\Api\v1\AuthController::class, 'login']);
 
-    Route::get('/my/jobs/', [\App\Http\Controllers\Api\v1\JobController::class, 'showMyJobs'])->middleware('auth:api');
+    Route::get('/jobs', [\App\Http\Controllers\Api\v1\JobController::class, 'index']);
 
-    Route::patch('/my/jobs/{job}', [\App\Http\Controllers\Api\v1\JobController::class, 'update'])->middleware('auth:api');
+    Route::get('/jobs/search', [\App\Http\Controllers\Api\v1\JobController::class, 'search']);
 
-    Route::post('/jobs/{job}/apply', [\App\Http\Controllers\Api\v1\ApplicationController::class, 'store'])->middleware('cors:json.response');
+    Route::get('/jobs/{job}', [\App\Http\Controllers\Api\v1\JobController::class, 'show']);
+
+    Route::post('/jobs/{job}/apply', [\App\Http\Controllers\Api\v1\ApplicationController::class, 'store']);
 });

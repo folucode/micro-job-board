@@ -12,7 +12,7 @@ class JobController extends Controller
     {
         $jobs = Job::all();
 
-        if (count($jobs) > 1) {
+        if (count($jobs) > 0) {
             return response()->json(['data' => $jobs->toArray()], 200);
         }
 
@@ -69,7 +69,7 @@ class JobController extends Controller
     {
         $data = Job::where('user_id', $request->user()->id)->get();
 
-        if (count($data) > 1) {
+        if (count($data) > 0) {
             return response()->json(['data' => $data->toArray()], 200);
         }
 
@@ -101,14 +101,14 @@ class JobController extends Controller
 
         // Using this method because it's not a robust search. 
         // If it was, Algolia search with laravel scout would be used.
-        
+
         $search_term = $request->query('q');
 
         $data = Job::where('title', 'like', '%' . $search_term . '%')
             ->orWhere('description', 'like', '%' . $search_term . '%')
             ->orWhere('type', 'like', '%' . $search_term . '%')->get();
 
-        if (count($data) > 1) {
+        if (count($data) > 0) {
             return response()->json([
                 'data' => $data
             ], 200);
