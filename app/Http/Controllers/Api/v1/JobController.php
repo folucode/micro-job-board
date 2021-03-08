@@ -28,7 +28,8 @@ class JobController extends Controller
 
     public function show($id)
     {
-        return Job::find($id);
+        $data = Job::findOrFail($id);
+        return response()->json(['data' => $data->toArray()], 200);
     }
 
     public function delete(Request $request, $id)
