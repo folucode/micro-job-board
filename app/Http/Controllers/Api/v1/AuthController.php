@@ -11,6 +11,13 @@ use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
+    /**
+     * Handle an Register attempt.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [

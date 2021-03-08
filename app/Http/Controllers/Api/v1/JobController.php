@@ -8,6 +8,12 @@ use Illuminate\Http\Request;
 
 class JobController extends Controller
 {
+
+    /**
+     * Show all jobs
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
         $jobs = Job::all();
@@ -22,6 +28,12 @@ class JobController extends Controller
         ], 200);
     }
 
+    /**
+     * Attempt storing a job
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
     public function store(Request $request)
     {
         $input = $request->all();
@@ -35,6 +47,12 @@ class JobController extends Controller
         ], 200);
     }
 
+    /**
+     * Show specific job
+     * 
+     * @param  $id
+     * @return \Illuminate\Http\Response
+     */
     public function show($id)
     {
         $data = Job::find($id);
@@ -49,6 +67,12 @@ class JobController extends Controller
         ], 404);
     }
 
+    /**
+     * Delete a job
+     
+     * @param  $id
+     * @return \Illuminate\Http\Response
+     */
     public function delete(Request $request, $id)
     {
         $article = Job::where('user_id', $request->user()->id)->where('id', $id);
@@ -65,6 +89,13 @@ class JobController extends Controller
         ], 404);
     }
 
+    /**
+     * Show jobs posted by authenticated user
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+
     public function showMyJobs(Request $request)
     {
         $data = Job::where('user_id', $request->user()->id)->get();
@@ -78,6 +109,14 @@ class JobController extends Controller
             'message' => 'No Jobs Available!'
         ], 200);
     }
+
+    /**
+     * Attempt updating a job
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @param  $id
+     * @return \Illuminate\Http\Response
+     */
 
     public function update(Request $request, $id)
     {
@@ -96,9 +135,14 @@ class JobController extends Controller
         ], 404);
     }
 
+    /**
+     * Attempt search
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
     public function search(Request $request)
     {
-
         // Using this method because it's not a robust search. 
         // If it was, Algolia search with laravel scout would be used.
 

@@ -9,6 +9,14 @@ use Illuminate\Http\Request;
 class ApplicationController extends Controller
 {
     
+    /**
+     * Attempt storing an application
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @param  $id
+     * @return \Illuminate\Http\Response
+     */
+
     public function store(Request $request, $id)
     {
 
