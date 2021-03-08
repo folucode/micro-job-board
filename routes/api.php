@@ -33,12 +33,14 @@ Route::prefix('v1')->group(function () {
 
     Route::post('/logout', [\App\Http\Controllers\Api\v1\AuthController::class, 'logout'])->middleware('auth:api');
 
-    Route::post('/jobs', [\App\Http\Controllers\Api\v1\JobController::class, 'store'])->middleware('auth:api');
+    Route::post('/my/jobs', [\App\Http\Controllers\Api\v1\JobController::class, 'store'])->middleware('auth:api');
 
     Route::get('/jobs', [\App\Http\Controllers\Api\v1\JobController::class, 'index'])->middleware('cors:json.response');
 
     Route::get('/jobs/{job}', [\App\Http\Controllers\Api\v1\JobController::class, 'show'])->middleware('cors:json.response');
 
-    Route::delete('/jobs/{job}', [\App\Http\Controllers\Api\v1\JobController::class, 'delete'])->middleware('auth:api');
+    Route::delete('/my/jobs/{job}', [\App\Http\Controllers\Api\v1\JobController::class, 'delete'])->middleware('auth:api');
+
+    Route::get('/my/jobs/', [\App\Http\Controllers\Api\v1\JobController::class, 'showMyJobs'])->middleware('auth:api');
 
 });

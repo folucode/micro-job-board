@@ -64,4 +64,18 @@ class JobController extends Controller
             'message' => 'Job Not Found!'
         ], 404);
     }
+
+    public function showMyJobs(Request $request)
+    {
+        $data = Job::where('user_id', $request->user()->id)->get();
+
+        if (count($data) > 1) {
+            return response()->json(['data' => $data->toArray()], 200);
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'No Jobs Available!'
+        ], 200);
+    }
 }
