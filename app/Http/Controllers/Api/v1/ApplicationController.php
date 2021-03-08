@@ -11,8 +11,15 @@ class ApplicationController extends Controller
     
     public function store(Request $request, $id)
     {
+
+        $name = $request->file('cv')->getClientOriginalName();
+        $cv_path = $request->file('cv')->storeAs(
+            'cv', $name
+        );
+
         $input = $request->all();
         $input['job_id'] = $id;
+        $input['cv'] = $cv_path;
 
         $data = Application::create($input);
 
