@@ -78,4 +78,21 @@ class JobController extends Controller
             'message' => 'No Jobs Available!'
         ], 200);
     }
+
+    public function update(Request $request, $id)
+    {
+        $job = Job::find($id);
+
+        if ($job && $job->update($request->all())) {
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Job Successfully Updated!', 'data' => $job
+            ], 200);
+        }
+
+        return response()->json([
+            'status' => 'error',
+            'message' => 'Job Not Found!'
+        ], 404);
+    }
 }

@@ -43,4 +43,6 @@ Route::prefix('v1')->group(function () {
 
     Route::get('/my/jobs/', [\App\Http\Controllers\Api\v1\JobController::class, 'showMyJobs'])->middleware('auth:api');
 
+    Route::patch('/my/jobs/{job}', [\App\Http\Controllers\Api\v1\JobController::class, 'update'])->middleware('auth:api');
+
 });
