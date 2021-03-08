@@ -95,4 +95,28 @@ class JobController extends Controller
             'message' => 'Job Not Found!'
         ], 404);
     }
+
+    public function search(Request $request)
+    {
+
+        // Using this method because it's not a robust search. 
+        // If it was, Algolia search with laravel scout would be used.
+        
+        $search_term = $request->query('q');
+
+        $data = Job::where('title', 'like', '%' . $search_term . '%')
+            ->orWhere('description', 'like', '%' . $search_term . '%')
+            ->orWhere('type', 'like', '%' . $search_term . '%')->get();
+
+        if (count($data) > 1) {
+            return response()->json([
+                'data' => $data
+            ], 200);
+        }
+
+        return response()->json([
+            'status' => 'error',
+            'message' => 'No Job Found!'
+        ], 404);
+    }
 }
