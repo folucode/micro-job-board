@@ -9,7 +9,7 @@ class Job extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'title', 'company', 'company_logo', 'location', 'salary', 'description', 'benefits', 'type', 'condition', 'submission_deadline'];
+    protected $fillable = ['user_id', 'title', 'company', 'company_logo', 'location', 'salary', 'description', 'benefits', 'type', 'condition', 'submission_deadline', 'categories'];
 
     /**
      * Get the applications for the job.
