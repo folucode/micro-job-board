@@ -69,8 +69,10 @@ class JobController extends Controller
 
     /**
      * Delete a job
-     
+     * 
+     * @param  \Illuminate\Http\Request $request
      * @param  $id
+     * 
      * @return \Illuminate\Http\Response
      */
     public function delete(Request $request, $id)
@@ -115,6 +117,7 @@ class JobController extends Controller
      *
      * @param  \Illuminate\Http\Request $request
      * @param  $id
+     * 
      * @return \Illuminate\Http\Response
      */
 
@@ -159,8 +162,8 @@ class JobController extends Controller
         }
 
         return response()->json([
-            'status' => 'error',
+            'status' => 'success',
             'message' => 'No Job Found!'
-        ], 404);
+        ], 200);
     }
 }

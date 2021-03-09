@@ -43,9 +43,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     * generate a token for the user
+     * 
+     * @return $token
+     */
     public function generateToken()
     {
-        $this->api_token = $this->createToken('token_name')->plainTextToken;
+        $this->api_token = $this->createToken('micro_job_board')->plainTextToken;
         $this->save();
 
         return $this->api_token;

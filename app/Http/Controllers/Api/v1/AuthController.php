@@ -12,7 +12,7 @@ use Illuminate\Support\Str;
 class AuthController extends Controller
 {
     /**
-     * Handle an Register attempt.
+     * Handle a Register attempt.
      *
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
@@ -42,7 +42,7 @@ class AuthController extends Controller
     }
 
     /**
-     * Handle an login attempt.
+     * Handle a login attempt.
      *
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
@@ -53,16 +53,21 @@ class AuthController extends Controller
             'email' => 'required|string|email|max:255',
             'password' => 'required|string|min:6',
         ]);
+
         if ($validator->fails()) {
             return response(['errors' => $validator->errors()->all()], 422);
         }
+
         $user = User::where('email', $request->email)->first();
+
         if ($user) {
             if (Hash::check($request->password, $user->password)) {
+
                 $token = $user->generateToken();
                 $response = ['token' => $token];
                 return response($response, 200);
             } else {
+
                 $response = ["message" => "Password mismatch"];
                 return response($response, 422);
             }
@@ -72,6 +77,12 @@ class AuthController extends Controller
         }
     }
 
+    /**
+     * Handle a logout attempt.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
     public function logout(Request $request)
     {
         $request->user()->api_token = null;

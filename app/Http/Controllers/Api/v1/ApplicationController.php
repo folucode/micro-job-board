@@ -14,15 +14,15 @@ class ApplicationController extends Controller
      *
      * @param  \Illuminate\Http\Request $request
      * @param  $id
+     * 
      * @return \Illuminate\Http\Response
      */
-
     public function store(Request $request, $id)
     {
 
-        $name = $request->file('cv')->getClientOriginalName();
+        $filename = $request->file('cv')->getClientOriginalName();
         $cv_path = $request->file('cv')->storeAs(
-            'cv', $name
+            'cv', $filename
         );
 
         $input = $request->all();

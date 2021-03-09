@@ -8,6 +8,12 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+    /**
+     * Show user profile
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
     public function index(Request $request)
     {
         $user = User::find($request->user()->id);
