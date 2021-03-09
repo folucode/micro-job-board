@@ -17,13 +17,17 @@ This is an API for a fictionaly job board(micro-job-board), where a business can
 1. `POST: /my/jobs` Posts a Job
 
 	Params: [
-		'job_id',
-		'first_name',
-		'last_name',
-		'email',
-		'phone',
-		'location',
-		'cv'
+		'title',
+        'company',
+        'company_logo',
+        'location',
+        'salary',
+        'description',
+        'benefits',
+        'type',
+        'condition',
+        'submission_deadline',
+        'category'
 ]
 
 1. `GET: /my/jobs/` Get jobs posted by User
@@ -31,13 +35,17 @@ This is an API for a fictionaly job board(micro-job-board), where a business can
 1. `PATCH: /my/jobs/{job_id}` Update an already existing job
 
 	Params(**i.e any of these**): [
-		'job_id',
-		'first_name',
-		'last_name',
-		'email',
-		'phone',
-		'location',
-		'cv'
+		'title',
+        'company',
+        'company_logo',
+        'location',
+        'salary',
+        'description',
+        'benefits',
+        'type',
+        'condition',
+        'submission_deadline',
+        'category'
 ]
 
 1. `DELETE: my/jobs/{job_id}` Delete a job posted by User
