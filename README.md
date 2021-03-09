@@ -5,7 +5,7 @@
 This is an API for a fictional job board(micro-job-board), where a business can sign up and post jobs and users can find jobs posted by a business and apply for them.
 
 #### App URL
-micro-job-board.herokuapp.com/
+https://micro-job-board.herokuapp.com/
 
 #### Exisiting Business Credentials
 email: business@example.com, password: password
