@@ -2,7 +2,7 @@
 
 ## Description
 
-This is an API for a fictionaly job board(micro-job-board), where a business can sign up and post jobs and users can find jobs posted by a business and apply for them.
+This is an API for a fictional job board(micro-job-board), where a business can sign up and post jobs and users can find jobs posted by a business and apply for them.
 
 ## Endpoints
 
