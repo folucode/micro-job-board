@@ -102,6 +102,11 @@ class JobController extends Controller
     {
         $data = Job::where('user_id', $request->user()->id)->get();
 
+        for ($i = 0; $i < count($data); $i++) {
+            $no_of_applications = Job::find($data[$i]->id)->applications;
+            $data[$i]->candidates = count($no_of_applications);
+        }
+
         if (count($data) > 0) {
             return response()->json(['data' => $data->toArray()], 200);
         }
