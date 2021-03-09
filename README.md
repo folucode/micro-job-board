@@ -4,6 +4,10 @@
 
 This is an API for a fictional job board(micro-job-board), where a business can sign up and post jobs and users can find jobs posted by a business and apply for them.
 
+#### Exisiting Business Credentials
+email: business@example.com
+password: password
+
 ## Endpoints
 
 **url:** {domain}/api/v1/{endpoint}
