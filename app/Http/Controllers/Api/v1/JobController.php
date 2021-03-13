@@ -36,6 +36,19 @@ class JobController extends Controller
      */
     public function store(Request $request)
     {
+
+        $request->validate([
+            'title' => 'required|max:255',
+            'company' => 'required',
+            'company_logo' => 'required',
+            'location' => 'required',
+            'description' => 'required',
+            'salary' => 'required',
+            'benefits' => 'required',
+            'type' => 'required',
+            'condition' => 'required'
+        ]);
+
         $input = $request->all();
         $input['user_id'] = $request->user()->id;
 
@@ -102,12 +115,13 @@ class JobController extends Controller
     {
         $data = Job::where('user_id', $request->user()->id)->get();
 
-        for ($i = 0; $i < count($data); $i++) {
-            $no_of_applications = Job::find($data[$i]->id)->applications;
-            $data[$i]->candidates = count($no_of_applications);
-        }
+        if ($data && count($data) > 0) {
 
-        if (count($data) > 0) {
+            for ($i = 0; $i < count($data); $i++) {
+                $no_of_applications = Job::find($data[$i]->id)->applications;
+                $data[$i]->candidates = count($no_of_applications);
+            }
+
             return response()->json(['data' => $data->toArray()], 200);
         }
 
@@ -156,14 +170,17 @@ class JobController extends Controller
 
         $search_term = $request->query('q');
 
-        $data = Job::where('title', 'like', '%' . $search_term . '%')
-            ->orWhere('description', 'like', '%' . $search_term . '%')
-            ->orWhere('type', 'like', '%' . $search_term . '%')->get();
+        if ($search_term !== '') {
 
-        if (count($data) > 0) {
-            return response()->json([
-                'data' => $data
-            ], 200);
+            $data = Job::where('title', 'like', '%' . $search_term . '%')
+                ->orWhere('description', 'like', '%' . $search_term . '%')
+                ->orWhere('type', 'like', '%' . $search_term . '%')->get();
+
+            if ($data && count($data) > 0) {
+                return response()->json([
+                    'data' => $data
+                ], 200);
+            }
         }
 
         return response()->json([
